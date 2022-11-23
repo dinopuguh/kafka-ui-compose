@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  kafka-ui:
+    image: provectuslabs/kafka-ui:v0.4.0
+    container_name: kafka-ui
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - $KAFKA_CLUSTERS_0_PROPERTIES_SSL_TRUSTSTORE_SOURCE_LOCATION:$KAFKA_CLUSTERS_0_PROPERTIES_SSL_TRUSTSTORE_LOCATION
+      - $KAFKA_CLUSTERS_0_PROPERTIES_SSL_KEYSTORE_SOURCE_LOCATION:$KAFKA_CLUSTERS_0_PROPERTIES_SSL_KEYSTORE_LOCATION
+      - $KAFKA_CLUSTERS_1_PROPERTIES_SSL_TRUSTSTORE_SOURCE_LOCATION:$KAFKA_CLUSTERS_1_PROPERTIES_SSL_TRUSTSTORE_LOCATION
+      - $KAFKA_CLUSTERS_1_PROPERTIES_SSL_KEYSTORE_SOURCE_LOCATION:$KAFKA_CLUSTERS_1_PROPERTIES_SSL_KEYSTORE_LOCATION
+    networks:
+      - kafka_net
+networks:
+  kafka_net:
+    external: true
+    name: $KAFKA_LOCAL_NETWORK
