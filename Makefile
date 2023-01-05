@@ -1,7 +1,7 @@
-up: .copy-env
+start: .copy-env
 	@docker compose up -d
 
-down:
+stop:
 	@docker compose down
 
 .copy-env:
